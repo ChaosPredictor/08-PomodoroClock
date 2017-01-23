@@ -1,23 +1,35 @@
+var a;
+var interval;
+
 $(document).ready(function(){
 	
 	var timeout = 0;
 
 	document.getElementById("refresh").addEventListener("click", function(){
 		console.log("start run");
-		//timeout = window.setTimeout(clockEnd, 4000);
-		a = new timer(clockEnd(),550000);
+		timer = new timer(function(){
+			timerEnd();
+		},5000);
 
-		setInterval(function() {
-			console.log('Time left: ' + a.getTimeLeftMinutes(timeout)+ 'm : ' + a.getTimeLeftSeconds(timeout)+'s');
+		interval = setInterval(function() {
+			console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
 		}, 1000);
 	});
 
 });
 
-function clockEnd() {
+
+
+
+function timerEnd() {
+	timer.pause();
+	clearInterval(interval);
 	$("body").css("background-color", "red");
 }
 
+function printTimer(minutes, seconds){
+
+}
 
 function getTimeLeft(timeout) {
 	return Math.ceil((timeout._idleStart + timeout._idleTimeout - Date.now()) / 1000);
