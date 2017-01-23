@@ -6,9 +6,9 @@ body{
 .main-div{
 	margin-top:150px;
 	background-color: rgba(34,67,56,0.5);
-	min-width: 400px;
+	//min-width: 400px;
 	padding-top: 80px;
 	padding-bottom: 80px;
-  border-radius: 20px;
+  border-radius: 80px;
 }
 

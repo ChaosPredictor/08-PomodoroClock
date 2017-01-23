@@ -2,7 +2,8 @@ $(document).ready(function(){
 
 	
 	document.getElementById("refresh").addEventListener("click", function(){
-		var timeoutID = window.setTimeout(clockEnd, [1000]);
+		console.log("start run");
+		var timeoutID = window.setTimeout(clockEnd, [4000]);
 	});
 
 });
