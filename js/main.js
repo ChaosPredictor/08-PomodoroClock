@@ -1,19 +1,25 @@
 var a;
 var interval;
+var timeOn = 60;
 
 $(document).ready(function(){
 	
 	var timeout = 0;
+	drowArc();
+	drowArc(1, NaN);
 
 	document.getElementById("refresh").addEventListener("click", function(){
 		console.log("start run");
 		timer = new timer(function(){
 			timerEnd();
-		},5000);
+		},timeOn * 1000);
 
 		interval = setInterval(function() {
 			console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
-		}, 1000);
+			drowArc(timer.getTimeLeft(timeout)/(timeOn*1000), pad(timer.getTimeLeftMinutes(timeout),2)+ ' : ' + pad(timer.getTimeLeftSeconds(timeout),2)+'');
+		}, 100);
+
+		//printTimer(this);
 	});
 
 });
@@ -27,8 +33,8 @@ function timerEnd() {
 	$("body").css("background-color", "red");
 }
 
-function printTimer(minutes, seconds){
-
+function printTimer(on){
+	on.innerHTML = "My new text!";
 }
 
 function getTimeLeft(timeout) {
@@ -59,6 +65,15 @@ function timer(callback, delay) {
 		return remaining;
 	}
 
+	this.getTimeLeftOnlySeconds = function() {
+		if (running) {
+			this.pause()
+			this.start()
+		}
+		
+		return Math.round(remaining/1000);
+	}
+
 	this.getTimeLeftSeconds = function() {
 		if (running) {
 			this.pause()
@@ -82,4 +97,23 @@ function timer(callback, delay) {
 	}
 
 	this.start();
+}
+
+function drowArc(part, text){
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d")
+	ctx.clearRect(0, 0, c.width, c.height);;
+	ctx.strokeStyle="#FF0000";
+	ctx.lineWidth=10;
+	ctx.beginPath();
+	ctx.font = "58px Transponder";
+	ctx.fillText(text, 140, 237);
+	ctx.arc(220, 220, 200, (1.5 - 2 * part) * Math.PI, 1.5 * Math.PI);
+	ctx.stroke();
+}
+
+function pad(n, width, z) {
+	z = z || '0';
+	n = n + '';
+	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }

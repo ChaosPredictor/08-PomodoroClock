@@ -1,3 +1,14 @@
+@font-face {
+   font-family: Charaille;
+   src: url(Charaille.TTF);
+}
+@font-face {
+   font-family: Transponder;
+   src: url(Transponder.TTF);
+}
+div {
+}
+
 body{
   background-repeat: no-repeat;
   background-size:cover;
@@ -6,9 +17,14 @@ body{
 .main-div{
 	margin-top:150px;
 	background-color: rgba(34,67,56,0.5);
-	//min-width: 400px;
-	padding-top: 80px;
-	padding-bottom: 80px;
-  border-radius: 80px;
+	width: 100px;
+	height: 100px;
+	padding: 180px;
+  border-radius: 180px;
+  font-family: Transponder;
 }
 
+#myCanvas{
+				margin-top:-220px;
+				margin-left:-220px;
+}
