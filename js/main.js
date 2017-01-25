@@ -1,28 +1,33 @@
 var a;
 var interval;
-var timeOn = 60;
+var workTime = 60;
+var workOn = false;
 
 $(document).ready(function(){
 	
 	var timeout = 0;
 	drowArc();
-	drowArc(1, secondsToShow(timeOn));
+	drowArc(1, secondsToShow(workTime));
 
 	$(".button").click( function () {
 		//console.log(this.id);
-		buttonClicked(this.id);
-		drowArc(1, secondsToShow(timeOn));
+		if (!workOn) {
+			buttonClicked(this.id);
+			drowArc(1, secondsToShow(workTime));
+		}
 	});
 
 	document.getElementById("refresh").addEventListener("click", function(){
 		console.log("start run");
+		workOn = true;
+
 		timer = new timer(function(){
 			timerEnd();
-		},timeOn * 1000);
+		},workTime * 1000);
 		
 		interval = setInterval(function() {
 			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
-			drowArc(timer.getTimeLeft()/(timeOn*1000), secondsToShow(timer.getTimeLeftOnlySeconds()));
+			drowArc(timer.getTimeLeft()/(workTime*1000), secondsToShow(timer.getTimeLeftOnlySeconds()));
 		}, 100);
 
 	});
@@ -32,16 +37,16 @@ $(document).ready(function(){
 function buttonClicked(btn) {
 	switch (btn) {
 		case "sec-plus" :
-			timeOn += 1;
+			workTime += 1;
 			return;
 		case "sec-minus" :
-			timeOn -= 1;
+			workTime -= 1;
 			return;
 		case "min-plus" :
-			timeOn += 60;
+			workTime += 60;
 			return;
 		case "min-minus" :
-			timeOn -= 60;
+			workTime -= 60;
 			return;
 	}
 }
@@ -52,6 +57,7 @@ function secondsToShow(sec) {
 
 function timerEnd() {
 	timer.pause();
+	workOn = false;
 	clearInterval(interval);
 	$("body").css("background-color", "red");
 }
