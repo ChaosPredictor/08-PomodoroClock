@@ -8,12 +8,18 @@ $(document).ready(function(){
 	drowArc();
 	drowArc(1, secondsToShow(timeOn));
 
+	$(".button").click( function () {
+		//console.log(this.id);
+		buttonClicked(this.id);
+		drowArc(1, secondsToShow(timeOn));
+	});
+
 	document.getElementById("refresh").addEventListener("click", function(){
 		console.log("start run");
 		timer = new timer(function(){
 			timerEnd();
 		},timeOn * 1000);
-
+		
 		interval = setInterval(function() {
 			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
 			drowArc(timer.getTimeLeft()/(timeOn*1000), secondsToShow(timer.getTimeLeftOnlySeconds()));
@@ -23,6 +29,12 @@ $(document).ready(function(){
 
 });
 
+function buttonClicked(btn) {
+	switch (btn) {
+		case "sec-plus" :
+			timeOn += 1;
+	}
+}
 
 function secondsToShow(sec) {
 	return pad(Math.floor(Math.round(sec)/60),2)+ ' : ' + pad(Math.round(sec)%60,2);
