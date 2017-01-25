@@ -6,7 +6,7 @@ $(document).ready(function(){
 	
 	var timeout = 0;
 	drowArc();
-	drowArc(1, NaN);
+	drowArc(1, timeOn);
 
 	document.getElementById("refresh").addEventListener("click", function(){
 		console.log("start run");
@@ -15,8 +15,8 @@ $(document).ready(function(){
 		},timeOn * 1000);
 
 		interval = setInterval(function() {
-			console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
-			drowArc(timer.getTimeLeft(timeout)/(timeOn*1000), pad(timer.getTimeLeftMinutes(timeout),2)+ ' : ' + pad(timer.getTimeLeftSeconds(timeout),2)+'');
+			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
+			drowArc(timer.getTimeLeft()/(timeOn*1000), secondsToShow(timer.getTimeLeftOnlySeconds()));
 		}, 100);
 
 	});
@@ -24,7 +24,9 @@ $(document).ready(function(){
 });
 
 
-
+function secondsToShow(sec) {
+	return pad(Math.floor(Math.round(sec)/60),2)+ ' : ' + pad(Math.round(sec)%60,2);
+}
 
 function timerEnd() {
 	timer.pause();
