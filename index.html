@@ -19,16 +19,44 @@
 		<script src="js/main.js"></script> 
 	</head>
 	<body>
-		<div id="refresh" class="col-md-0 col-md-offset-4 main-div">
-			<canvas id="myCanvas" width="440" height="440" style="border:0px solid #d3d3d3;">
+		<div class="buttons-menu col-md-3 col-md-offset-1">
+			<div class="sub-buttons-menu col-md-12">
+				<button id="min-plus" class="button"> + </button>
+				Minutes
+				<button id="min-minus" class="button"> - </button>
+			</div>
+			<div class="col-md-12 button-title">
+				Work Time:
+			</div>
+			<div id="wotk-time" class="col-md-12 button-time">
+			</div>
+			<div class="sub-buttons-menu col-md-12">
+				<button id="sec-plus" class="button"> + </button>
+				Seconds
+				<button id="sec-minus" class="button"> - </button>
+			</div>
 		</div>
-		<div id="buttons-menu">
-			<button id="min-plus" class="button"> + </button>
-			Minutes
-			<button id="min-minus" class="button"> - </button>
-			<button id="sec-plus" class="button"> + </button>
-			Seconds
-			<button id="sec-minus" class="button"> - </button>
+		<div class="col-md-4">
+			<div id="refresh" class="main-div">
+				<canvas id="myCanvas" width="440" height="440" style="border:0px solid #d3d3d3;">
+			</div>
+		</div>
+		<div class="buttons-menu col-md-3 col-md-offset-1">
+			<div class="sub-buttons-menu col-md-12">
+				<button id="min-plus" class="button"> + </button>
+				Minutes
+				<button id="min-minus" class="button"> - </button>
+			</div>
+			<div class="col-md-12 button-title">
+				Break Time:
+			</div>
+			<div id="break-time" class="col-md-12 button-time">
+			</div>
+			<div class="sub-buttons-menu col-md-12">
+				<button id="sec-plus" class="button"> + </button>
+				Seconds
+				<button id="sec-minus" class="button"> - </button>
+			</div>
 		</div>
 	</body>
 </html>
