@@ -33,6 +33,16 @@ function buttonClicked(btn) {
 	switch (btn) {
 		case "sec-plus" :
 			timeOn += 1;
+			return;
+		case "sec-minus" :
+			timeOn -= 1;
+			return;
+		case "min-plus" :
+			timeOn += 60;
+			return;
+		case "min-minus" :
+			timeOn -= 60;
+			return;
 	}
 }
 
