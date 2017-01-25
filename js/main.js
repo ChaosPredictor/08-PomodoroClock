@@ -8,12 +8,14 @@ $(document).ready(function(){
 	var timeout = 0;
 	drowArc();
 	drowArc(1, secondsToShow(workTime));
+	$("#work-time").text(secondsToShow(workTime));
 
 	$(".button").click( function () {
 		//console.log(this.id);
 		if (!workOn) {
 			buttonClicked(this.id);
 			drowArc(1, secondsToShow(workTime));
+			$("#work-time").text(secondsToShow(workTime));
 		}
 	});
 
@@ -28,7 +30,7 @@ $(document).ready(function(){
 		interval = setInterval(function() {
 			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
 			drowArc(timer.getTimeLeft()/(workTime*1000), secondsToShow(timer.getTimeLeftOnlySeconds()));
-		}, 100);
+		}, 20);
 
 	});
 
