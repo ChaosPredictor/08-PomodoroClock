@@ -19,7 +19,6 @@ $(document).ready(function(){
 			drowArc(timer.getTimeLeft(timeout)/(timeOn*1000), pad(timer.getTimeLeftMinutes(timeout),2)+ ' : ' + pad(timer.getTimeLeftSeconds(timeout),2)+'');
 		}, 100);
 
-		//printTimer(this);
 	});
 
 });
