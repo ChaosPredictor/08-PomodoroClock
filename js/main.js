@@ -6,7 +6,7 @@ $(document).ready(function(){
 	
 	var timeout = 0;
 	drowArc();
-	drowArc(1, timeOn);
+	drowArc(1, secondsToShow(timeOn));
 
 	document.getElementById("refresh").addEventListener("click", function(){
 		console.log("start run");
