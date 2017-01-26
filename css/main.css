@@ -1,8 +1,4 @@
 @font-face {
-   font-family: Charaille;
-   src: url(Charaille.TTF);
-}
-@font-face {
    font-family: Transponder;
    src: url(Transponder.TTF);
 }
@@ -23,12 +19,13 @@ body{
   border-radius: 180px;
   font-family: Transponder;
 	cursor:pointer;
-	border: 1px solid black;
+	//border: 1px solid black;
 }
 
 #myCanvas{
 				margin-top:-220px;
 				margin-left:-220px;
+				font-family: Transponder;
 }
 
 .sub-buttons-menu {

@@ -1,21 +1,30 @@
 var a;
 var interval;
-var workTime = 15;
-var breakTime = 10;
+var workTime = 1500;
+var breakTime = 300;
 var workOn = false;
 var breakOn = false;
 var runTimer;
 var timerPause = false;
-var endOfWork = new Audio('audio/endOfWork.mp3');
-var endOfBreak = new Audio('audio/endOfBreak.mp3');
+
 
 $(document).ready(function(){
 	
 	var timeout = 0;
-	drowArc();
-	drowArc(1, secondsToShow(workTime));
-	$("#work-time").text(secondsToShow(workTime));
-	$("#break-time").text(secondsToShow(breakTime));
+	//drowArc();
+	
+	waitForWebfonts(['Transponder'], function() {
+		$("#work-time").text(secondsToShow(workTime));
+		$("#break-time").text(secondsToShow(breakTime));
+		drowArc(1, secondsToShow(workTime));
+	});
+	
+	window.onload = function () {
+		if (! localStorage.justOnce) {
+		    localStorage.setItem("justOnce", "true");
+		    window.location.reload();
+	    }
+	}
 
 	$(".btn-work").click( function () {
 		//console.log(this.id);
@@ -62,7 +71,7 @@ $(document).ready(function(){
 		clearInterval(interval);
 		$(".main-div").css("background-color", "grey");
 	}); 
-
+	
 });
 
 function startRun(time){
@@ -202,10 +211,10 @@ function drowArc(part, text){
 	ctx.strokeStyle="#FF0000";
 	ctx.lineWidth=10;
 	ctx.beginPath();
-	ctx.font = "58px Transponder";
-	ctx.fillText(text, 140, 237);
 	ctx.arc(220, 220, 200, (1.5 - 2 * part) * Math.PI, 1.5 * Math.PI);
 	ctx.stroke();
+	ctx.font = "58px Transponder";
+	ctx.fillText(text, 140, 237);
 }
 
 function pad(n, width, z) {
@@ -213,3 +222,60 @@ function pad(n, width, z) {
 	n = n + '';
 	return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
+function waitForWebfonts(fonts, callback) {
+    var loadedFonts = 0;
+    for(var i = 0, l = fonts.length; i < l; ++i) {
+        (function(font) {
+            var node = document.createElement('span');
+            // Characters that vary significantly among different fonts
+            node.innerHTML = 'giItT1WQy@!-/#';
+            // Visible - so we can measure it - but not on the screen
+            node.style.position      = 'absolute';
+            node.style.left          = '-10000px';
+            node.style.top           = '-10000px';
+            // Large font size makes even subtle changes obvious
+            node.style.fontSize      = '300px';
+            // Reset any font properties
+            node.style.fontFamily    = 'sans-serif';
+            node.style.fontVariant   = 'normal';
+            node.style.fontStyle     = 'normal';
+            node.style.fontWeight    = 'normal';
+            node.style.letterSpacing = '0';
+            document.body.appendChild(node);
+
+            // Remember width with no applied web font
+            var width = node.offsetWidth;
+
+            node.style.fontFamily = font + ', sans-serif';
+
+            var interval;
+            function checkFont() {
+                // Compare current width with original width
+                if(node && node.offsetWidth != width) {
+                    ++loadedFonts;
+                    node.parentNode.removeChild(node);
+                    node = null;
+                }
+
+                // If all fonts have been loaded
+                if(loadedFonts >= fonts.length) {
+                    if(interval) {
+                        clearInterval(interval);
+                    }
+                    if(loadedFonts == fonts.length) {
+                        callback();
+                        return true;
+                    }
+                }
+            };
+
+            if(!checkFont()) {
+                interval = setInterval(checkFont, 50);
+            }
+        })(fonts[i]);
+    }
+};
+
+var endOfWork = new Audio('audio/endOfWork.mp3');
+var endOfBreak = new Audio('audio/endOfBreak.mp3');
