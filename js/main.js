@@ -57,6 +57,7 @@ $(document).ready(function(){
 		breakOn = false;
 		timerPause = false;
 		drowArc(1, secondsToShow(workTime));
+		clearInterval(interval);
 	}); 
 
 });
