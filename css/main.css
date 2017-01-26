@@ -31,10 +31,10 @@ body{
 
 .sub-buttons-menu {
 				font-size:25px;
-				margin-top:80px;
+				margin-top:40px;
 }
 .buttons-menu{
-				margin-top:20px;
+				margin-top:60px;
 //margin-left:50px;
 }
 .button {
@@ -46,4 +46,10 @@ body{
 				font-size: 30px;
 				font-family: Ariel;
 				margin-top: 20px;
+}
+
+.button-time{
+				font-size: 35px;
+				font-family: Transponder;
+				margin-left: 15px;
 }
