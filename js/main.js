@@ -1,7 +1,10 @@
 var a;
 var interval;
-var workTime = 60;
+var workTime = 15;
+var breakTime = 10;
 var workOn = false;
+var breakOn = false;
+var runTimer;
 
 $(document).ready(function(){
 	
@@ -9,59 +12,87 @@ $(document).ready(function(){
 	drowArc();
 	drowArc(1, secondsToShow(workTime));
 	$("#work-time").text(secondsToShow(workTime));
+	$("#break-time").text(secondsToShow(breakTime));
 
-	$(".button").click( function () {
+	$(".btn-work").click( function () {
 		//console.log(this.id);
 		if (!workOn) {
-			buttonClicked(this.id);
+			workTime += buttonClicked(this.id);
 			drowArc(1, secondsToShow(workTime));
 			$("#work-time").text(secondsToShow(workTime));
 		}
 	});
 
+	$(".btn-break").click( function () {
+		//console.log(this.id);
+		if (!breakOn) {
+			breakTime += buttonClicked(this.id);
+			$("#break-time").text(secondsToShow(breakTime));
+		}
+	});
+
 	document.getElementById("refresh").addEventListener("click", function(){
-		console.log("start run");
 		workOn = true;
-
-		timer = new timer(function(){
-			timerEnd();
-		},workTime * 1000);
-		
-		interval = setInterval(function() {
-			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
-			drowArc(timer.getTimeLeft()/(workTime*1000), secondsToShow(timer.getTimeLeftOnlySeconds()));
-		}, 20);
-
+		startRun(workTime);
 	});
 
 });
 
+function startRun(time){
+
+		console.log("start run");
+		//workOn = true;
+		console.log("timer: " + runTimer);
+		runTimer = new timer(function(){
+			console.log("end time");
+			timerEnd()
+		},time * 1000);
+		
+		interval = setInterval(function() {
+			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
+			drowArc(runTimer.getTimeLeft()/(time*1000), secondsToShow(runTimer.getTimeLeftOnlySeconds()));
+		}, 200);
+
+}
+
+function timerEnd() {
+
+	runTimer.pause();
+	runTimer = null;
+	clearInterval(interval);
+	//$("body").css("background-color", "red");
+	if (!workOn) {
+		console.log("work time");
+		workOn = true;
+		breakOn = false;
+		startRun(workTime);
+	} else {
+		console.log("break time");
+		breakOn= true;
+		workOn = false;
+		startRun(breakTime);
+	}
+}
+
 function buttonClicked(btn) {
 	switch (btn) {
 		case "sec-plus" :
-			workTime += 1;
-			return;
+			//workTime += 1;
+			return 1;
 		case "sec-minus" :
-			workTime -= 1;
-			return;
+			//workTime -= 1;
+			return -1;
 		case "min-plus" :
-			workTime += 60;
-			return;
+			//workTime += 60;
+			return 60;
 		case "min-minus" :
-			workTime -= 60;
-			return;
+			//workTime -= 60;
+			return -60;
 	}
 }
 
 function secondsToShow(sec) {
 	return pad(Math.floor(Math.round(sec)/60),2)+ ' : ' + pad(Math.round(sec)%60,2);
-}
-
-function timerEnd() {
-	timer.pause();
-	workOn = false;
-	clearInterval(interval);
-	$("body").css("background-color", "red");
 }
 
 function printTimer(on){
