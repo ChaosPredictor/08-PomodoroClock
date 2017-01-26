@@ -22,6 +22,8 @@ body{
 	padding: 180px;
   border-radius: 180px;
   font-family: Transponder;
+	cursor:pointer;
+	border: 1px solid black;
 }
 
 #myCanvas{
