@@ -58,6 +58,7 @@ $(document).ready(function(){
 		timerPause = false;
 		drowArc(1, secondsToShow(workTime));
 		clearInterval(interval);
+		$(".main-div").css("background-color", "grey");
 	}); 
 
 });
@@ -66,6 +67,11 @@ function startRun(time){
 
 		console.log("start run");
 		//workOn = true;
+		if (workOn) {
+			$(".main-div").css("background-color", "blue");
+		} else if (breakOn) {
+			$(".main-div").css("background-color", "green");
+		}
 		console.log("timer: " + runTimer);
 		runTimer = new timer(function(){
 			console.log("end time");
