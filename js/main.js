@@ -6,6 +6,8 @@ var workOn = false;
 var breakOn = false;
 var runTimer;
 var timerPause = false;
+var endOfWork = new Audio('audio/endOfWork.mp3');
+var endOfBreak = new Audio('audio/endOfBreak.mp3');
 
 $(document).ready(function(){
 	
@@ -92,11 +94,13 @@ function timerEnd() {
 	clearInterval(interval);
 	//$("body").css("background-color", "red");
 	if (!workOn) {
+		endOfBreak.play();
 		console.log("work time");
 		workOn = true;
 		breakOn = false;
 		startRun(workTime);
 	} else {
+		endOfWork.play();
 		console.log("break time");
 		breakOn= true;
 		workOn = false;
