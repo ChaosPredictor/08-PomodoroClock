@@ -5,6 +5,7 @@ var breakTime = 10;
 var workOn = false;
 var breakOn = false;
 var runTimer;
+var timerPause = false;
 
 $(document).ready(function(){
 	
@@ -18,8 +19,10 @@ $(document).ready(function(){
 		//console.log(this.id);
 		if (!workOn) {
 			workTime += buttonClicked(this.id);
-			drowArc(1, secondsToShow(workTime));
 			$("#work-time").text(secondsToShow(workTime));
+			if (!breakOn) {
+				drowArc(1, secondsToShow(workTime));
+			}
 		}
 	});
 
@@ -32,9 +35,29 @@ $(document).ready(function(){
 	});
 
 	document.getElementById("refresh").addEventListener("click", function(){
-		workOn = true;
-		startRun(workTime);
-	});
+		//console.log("button pushed");
+		if (!workOn && !breakOn) {
+			workOn = true;
+			startRun(workTime);
+		} else if(timerPause) {
+			timerPause = false;
+			console.log("runTimer: " + runTimer);
+			runTimer.start();
+		} else {
+			timerPause = true;
+			console.log("runTimer: " + runTimer);
+			runTimer.pause();
+		}
+	}); 
+	
+	document.getElementById("refresh").addEventListener("dblclick", function() {
+		runTimer.pause();
+		runTimer = null;
+		workOn = false;
+		breakOn = false;
+		timerPause = false;
+		drowArc(1, secondsToShow(workTime));
+	}); 
 
 });
 
@@ -51,7 +74,7 @@ function startRun(time){
 		interval = setInterval(function() {
 			//console.log('Time left: ' + timer.getTimeLeftMinutes(timeout)+ 'm : ' + timer.getTimeLeftSeconds(timeout)+'s');
 			drowArc(runTimer.getTimeLeft()/(time*1000), secondsToShow(runTimer.getTimeLeftOnlySeconds()));
-		}, 200);
+		}, 50);
 
 }
 
