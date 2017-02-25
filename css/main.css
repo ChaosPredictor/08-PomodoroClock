@@ -52,3 +52,17 @@ body{
 				font-family: Transponder;
 				margin-left: 15px;
 }
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;    
+	font-weight: bold;
+}
+
+a:link {color: red; text-decoration: none; font-weight: bold; !important}
+a:active {color: red; text-decoration: none; font-weight: bold;  !important}
+a:visited {color: red; text-decoration: none; font-weight: bold; !important}
+a:hover {color: red; text-decoration: none; font-weight: bold; !important}
